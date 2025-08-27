@@ -1,0 +1,123 @@
+project:
+  type: book
+  output-dir: _book
+  preview:
+    port: 4210
+
+extensions:
+  - reveal-vspace
+  - _extensions/shield_badge
+
+filters:
+  - pseudocode
+
+book:
+  title: "Regression Monkey Nonparametric Statistics" #change here
+  google-analytics: 
+    tracking-id: "G-QEFX7FVCDM"
+  favicon: include/pictures/favicon.ico
+  sharing: twitter
+
+  sidebar:
+      tools:
+       - text: Blog Series
+         icon: book
+         menu:
+         - text: Ryo's Datascience Blog
+           href: https://ryonakagami.github.io/regmonkey-datascience-blog/
+           aria-label: blog-general
+         - text: cmdstanpy for regmonkey
+           href: https://ryonakagami.github.io/cmdstan_for_regression_monkey/
+           aria-label: regmonkey_cmd
+         - text: Statistics for regmonkey
+           href: https://ryonakagami.github.io/statistics-for-regression-monkey/
+           aria-label: regmonkey_dojo
+         - text: OhGoshGit!?!
+           href: https://ohgoshgit.github.io/
+           aria-label: blog-ogg
+  repo-actions: [edit, issue]
+  page-footer:
+    center:
+      - text: "© Copyright RyoNak"
+      - text: "LICENSE"
+        href: LICENSE
+
+  chapters:
+    - index.qmd
+    - references.qmd
+    # - part: posts/statistics101/chapter_header.qmd
+      # chapters:
+        # - posts/statistics101/averages.qmd
+  # appendices:
+    # - posts/statistics101/appendix.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    include-in-header: 
+      - include/font/fontsetup.html
+      - include/math/mathjax.html
+      - include/google_setup/googletagmanager_in_header.html
+    include-before-body: 
+      - include/google_setup/googletagmanager_in_body.html
+    lang: ja_JP.UTF-8
+    number-depth: 1
+    highlight-style: github
+    jupyter: python3
+    theme: 
+      light: 
+        - cosmo
+        - include/scss/style.scss
+        - include/scss/light.scss
+      dark: 
+        - darkly
+        - include/scss/style.scss
+        - include/scss/dark.scss
+    fontsize: 18px
+    code-copy: true
+    code-fold: true
+    code-overflow: wrap
+    date-format: "iso"
+    bibliography: references.bib
+    biblatexoptions: bibstyle=jauthoryear,citestyle=numeric,natbib=true
+    csl: reference.csl
+    mainfont: "Noto Sans JP"
+    monofont: monospace
+    mermaid:
+      theme: neutral
+    pseudocode:
+      caption-prefix: "Algorithm"      # Prefix for captions (default: "Algorithm")
+      reference-prefix: "Algorithm"   # Prefix for references (default: "Algorithm")
+      caption-number: true
+  epub:
+    lang: ja_JP.UTF-8
+    number-depth: 1
+    highlight-style: github
+    jupyter: python3
+    theme:
+      light:
+        - cosmo
+        - include/scss/style.scss
+        - include/scss/light.scss
+      dark:
+        - darkly
+        - include/scss/style.scss
+        - include/scss/dark.scss
+    fontsize: 18px
+    code-copy: true
+    code-fold: true
+    code-overflow: wrap
+    date-format: "iso"
+    bibliography: references.bib
+    biblatexoptions: bibstyle=jauthoryear,citestyle=numeric,natbib=true
+    csl: reference.csl
+    mainfont: "Noto Sans JP"
+    monofont: monospace
+    cover-image: cover.png
+    mermaid:
+      theme: neutral
+    pseudocode:
+      caption-prefix: "Algorithm"      # Prefix for captions (default: "Algorithm")
+      reference-prefix: "Algorithm"   # Prefix for references (default: "Algorithm")
+      caption-number: true

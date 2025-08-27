@@ -1,0 +1,36 @@
+{{< shield_badge "./include/badges/uv_version.json" >}}
+
+{{< shield_badge "./include/badges/uv_version.json" >}}
+
+{{< shield_badge '{"label":"uv","message":"0.8.13","color":"green"}' >}}
+
+![](https://img.shields.io/badge/uv-0.8.3-blue)
+
+
+# Preface {.unnumbered}
+
+
+
+This is a Quarto book.
+
+
+To learn more about Quarto books visit <https://quarto.org/docs/books>.
+
+$$
+1
+$$
+
+$$
+\begin{align}
+1 + 1\\
+2+2\\
+\frac{2}{4}\\
+\frac{2}{4}\\
+\end{align}
+$$
+
+## Test
+
+This is a book created from markdown and executable code.
+
+See @knuth84 for additional discussion of literate programming.

@@ -1,0 +1,34 @@
+[project]
+name = "regression-monkey-nonparametric"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "RyoNak", email = "nakagamiryo0901@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "numpy>=2.3.2",
+    "scipy>=1.16.1",
+]
+
+[project.scripts]
+regression-monkey-nonparametric = "regression_monkey_nonparametric:main"
+
+
+[build-system]
+requires = ["uv_build>=0.8.13,<0.9.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+book = [
+    "ipykernel>=6.30.1",
+    "matplotlib>=3.10.5",
+    "nbformat>=5.10.4",
+    "pandas>=2.3.2",
+    "plotly>=6.3.0",
+]
+dev = [
+    "pytest>=8.4.1",
+    "ruff>=0.12.10",
+]
