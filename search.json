@@ -14,7 +14,7 @@
     "href": "index.html#test",
     "title": "Regression Monkey Nonparametric Statistics",
     "section": "Test",
-    "text": "Test\nThis is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, D. E. (1984), 「Literate Programming」, Comput. J., USA: Oxford University Press, Inc., 27, 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "text": "Test\nThis is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\nTest\n\n\nCode\nprint(1 + 1)\nimport yaml\n\n\n2\n\n\n\n\n\n\nKnuth, D. E. (1984), 「Literate Programming」, Comput. J., USA: Oxford University Press, Inc., 27, 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
     "crumbs": [
       "Preface"
     ]
