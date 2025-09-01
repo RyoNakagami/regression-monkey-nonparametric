@@ -1,3 +1,7 @@
+---
+engine: knitr
+---
+
 {{< shield_badge "./include/badges/quarto_version.json" >}}
 {{< shield_badge "./include/badges/uv_version.json" >}}
 {{< shield_badge "./include/badges/python_version.json" >}}
@@ -37,4 +41,12 @@ Test
 ```{python}
 print(1 + 1)
 import yaml
+import numpy as np
+
+np.array([1])
+```
+
+```{zsh}
+#| echo: true
+pyzen
 ```
