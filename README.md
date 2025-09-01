@@ -142,7 +142,11 @@ fatal: '.quarto/quarto-publish-worktree-21440733a1c14bff' contains modified or u
 PRE_COMMIT_ALLOW_NO_CONFIG=1 quarto publish gh-pages
 ```
 
+**&#9654;&nbsp; スクリプトversion**
 
+```bash
+bash publish_quarto_book.sh
+```
 
 ## References
 

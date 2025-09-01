@@ -35,18 +35,3 @@ This is a book created from markdown and executable code.
 See @knuth84 for additional discussion of literate programming.
 
 Test
-
-
-
-```{python}
-print(1 + 1)
-import yaml
-import numpy as np
-
-np.array([1])
-```
-
-```{zsh}
-#| echo: true
-pyzen
-```
