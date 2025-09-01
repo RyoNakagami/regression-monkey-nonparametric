@@ -123,15 +123,16 @@ origin  https://github.com/RyoNakagami/regression-monkey-nonparametric.git (push
 
 ## Quarto Publish
 
+運用としては `main` ブランチの内容をlocalでレンダリングし，それをGitHub Pagesにデプロイする流れを想定しています．
+ただし，`gh-pages` ブランチは `.pre-commit-config.yaml` は存在しないため，pre-commitのhookが働かず，以下のようなエラーが発生します:
+
+
+それに対処するため，以下のような実行を想定しています
+
+
 ```bash
 PRE_COMMIT_ALLOW_NO_CONFIG=1 quarto publish gh-pages
 ```
-
-
-```bash
-quarto publish gh-pages
-```
-
 
 ## References
 
