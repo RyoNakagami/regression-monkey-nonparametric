@@ -1,4 +1,21 @@
-![UV](https://img.shields.io/endpoint?url=https://ryonakagami.github.io/regmonkey-datascience-blog/badges/posts.json)
+![uv](https://img.shields.io/badge/uv-0.8.13-blue)
+![python](https://img.shields.io/badge/python-3.13.7-blue)
+![quarto](https://img.shields.io/badge/quarto-1.7.32-blue)
+
+## 開発環境セットアップ
+
+このリポジトリでは **バッジの自動更新** を行うために以下が必要です:
+
+- [jq](https://stedolan.github.io/jq/) : JSON の整形・更新に利用
+- [pre-commit](https://pre-commit.com/) : Git コミット前にスクリプトを自動実行する仕組み
+
+**&#9654;&nbsp; pre-commit初期設定**
+
+リポジトリを clone したあと，以下を一度実行してください:
+
+```bash
+pre-commit install
+```
 
 ## UV Dependency groups
 
@@ -15,7 +32,7 @@
 uv add numpy
 
 # dev
-uv add --group dev pytest 
+uv add --group dev pytest
 
 # book
 uv add --group book ipykernel nbformat plotly pandas matplotlib
@@ -61,3 +78,61 @@ uv run quarto preview
 
 - `uv run` は 仮想環境内でコマンドを実行する uv の基本コマンド
 - 上記を実行すると，Quarto Book がローカルサーバーで立ち上がる
+
+## GitHub Repository Setup
+
+現在のディレクトリの Git リポジトリ（`git init`済み）を GitHub Repositoryに作成し，first-commitをpushする手順は以下
+
+**&#9654;&nbsp; GitHub Repository作成 Syntax**
+
+```bash
+gh repo create <repositoryname> --source=. --remote=<upstream-name> --public --push
+```
+
+**&#9654;&nbsp; 実行例**
+
+```zsh
+% gh repo create regression-monkey-nonparametric \
+  --source=. \
+  --remote=origin \
+  --public \
+  --push
+✓ Created repository RyoNakagami/regression-monkey-nonparametric on github.com
+  https://github.com/RyoNakagami/regression-monkey-nonparametric
+✓ Added remote https://github.com/RyoNakagami/regression-monkey-nonparametric.git
+Enumerating objects: 70, done.
+Counting objects: 100% (70/70), done.
+Delta compression using up to 32 threads
+Compressing objects: 100% (61/61), done.
+Writing objects: 100% (70/70), 166.02 KiB | 27.67 MiB/s, done.
+Total 70 (delta 8), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (8/8), done.
+To https://github.com/RyoNakagami/regression-monkey-nonparametric.git
+ * [new branch]      HEAD -> main
+branch 'main' set up to track 'origin/main'.
+✓ Pushed commits to https://github.com/RyoNakagami/regression-monkey-nonparametric.git
+```
+
+remoteを確認すると
+
+```zsh
+% git remote -v
+origin  https://github.com/RyoNakagami/regression-monkey-nonparametric.git (fetch)
+origin  https://github.com/RyoNakagami/regression-monkey-nonparametric.git (push)
+```
+
+## Quarto Publish
+
+```bash
+PRE_COMMIT_ALLOW_NO_CONFIG=1 quarto publish gh-pages
+```
+
+
+```bash
+quarto publish gh-pages
+```
+
+
+## References
+
+- [Quarto Publishing with GitHub Pages](https://quarto.org/docs/publishing/github-pages.html)

@@ -2,7 +2,7 @@ project:
   type: book
   output-dir: _book
   preview:
-    port: 4210
+    port: 4210 #change here
 
 extensions:
   - reveal-vspace
@@ -13,8 +13,10 @@ filters:
 
 book:
   title: "Regression Monkey Nonparametric Statistics" #change here
+  repo-url: https://github.com/RyoNakagami/regression-monkey-nonparametric
+  # site-url: https://ryonakagami.github.io/statistics-for-regression-monkey/
   google-analytics: 
-    tracking-id: "G-QEFX7FVCDM"
+    tracking-id: "G-QEFX7FVCDM" #change here
   favicon: include/pictures/favicon.ico
   sharing: twitter
 

@@ -1,11 +1,6 @@
+{{< shield_badge "./include/badges/quarto_version.json" >}}
 {{< shield_badge "./include/badges/uv_version.json" >}}
-
-{{< shield_badge "./include/badges/uv_version.json" >}}
-
-{{< shield_badge '{"label":"uv","message":"0.8.13","color":"green"}' >}}
-
-![](https://img.shields.io/badge/uv-0.8.3-blue)
-
+{{< shield_badge "./include/badges/python_version.json" >}}
 
 # Preface {.unnumbered}
 

@@ -1,0 +1,21 @@
+repos:
+  - repo: local
+    hooks:
+      - id: update-quarto-badge
+        name: Update Quarto badge version
+        entry: bash scripts/update_quarto_badge.sh
+        language: system
+        files: ^include/badges/quarto_version.json$
+
+      - id: update-uv-badge
+        name: Update uv badge version
+        entry: bash scripts/update_uv_badge.sh
+        language: system
+        files: ^include/badges/uv_version.json$
+
+      - id: update-python-badge
+        name: Update Python badge version
+        entry: bash scripts/update_python_badge.sh
+        language: system
+        files: ^include/badges/python_version.json$
+        
