@@ -1,0 +1,32 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Regression Monkey Nonparametric Statistics",
+    "section": "",
+    "text": "Preface\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.\n\\[\n1\n\\]\n\\[\n\\begin{align}\n1 + 1\\\\\n2+2\\\\\n\\frac{2}{4}\\\\\n\\frac{2}{4}\\\\\n\\end{align}\n\\]",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "index.html#test",
+    "href": "index.html#test",
+    "title": "Regression Monkey Nonparametric Statistics",
+    "section": "Test",
+    "text": "Test\nThis is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, D. E. (1984), 「Literate Programming」, Comput. J., USA: Oxford University Press, Inc., 27, 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Knuth, D. E. (1984), “Literate programming,” Comput.\nJ., USA: Oxford University Press, Inc., 27, 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "crumbs": [
+      "References"
+    ]
+  }
+]
