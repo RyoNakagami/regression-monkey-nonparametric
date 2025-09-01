@@ -138,10 +138,11 @@ fatal: '.quarto/quarto-publish-worktree-21440733a1c14bff' contains modified or u
 
 それに対処するため，以下のような実行を想定しています
 
-
 ```bash
 PRE_COMMIT_ALLOW_NO_CONFIG=1 quarto publish gh-pages
 ```
+
+
 
 ## References
 
