@@ -14,7 +14,7 @@ filters:
 book:
   title: "Regression Monkey Nonparametric Statistics" #change here
   repo-url: https://github.com/RyoNakagami/regression-monkey-nonparametric
-  # site-url: https://ryonakagami.github.io/statistics-for-regression-monkey/
+  site-url: https://ryonakagami.github.io/regression-monkey-nonparametric/
   google-analytics: 
     tracking-id: "G-QEFX7FVCDM" #change here
   favicon: include/pictures/favicon.ico

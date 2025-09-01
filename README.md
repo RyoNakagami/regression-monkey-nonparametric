@@ -1,3 +1,5 @@
+# Regression Monkey Nonparametric Statistics
+
 ![uv](https://img.shields.io/badge/uv-0.8.13-blue)
 ![python](https://img.shields.io/badge/python-3.13.7-blue)
 ![quarto](https://img.shields.io/badge/quarto-1.7.32-blue)
@@ -36,6 +38,13 @@ uv add --group dev pytest
 
 # book
 uv add --group book ipykernel nbformat plotly pandas matplotlib
+```
+
+**&#9654;&nbsp; Sync Python Env**
+
+```bash
+# for quarto preview
+uv sync --all-groups
 ```
 
 ## Lint check
