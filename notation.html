@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-09-01">
 
-<title>Regression Monkey Nonparametric Statistics</title>
+<title>Notaitons – Regression Monkey Nonparametric Statistics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +31,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./summary.html" rel="next">
+<link href="./notes/density_estimation/introduction.html" rel="next">
+<link href="./summary.html" rel="prev">
 <link href="./include/pictures/favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -117,6 +118,35 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
     })(window,document,'script','dataLayer','GTM-M27Z2BWG');</script>
 <!-- End Google Tag Manager -->
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -291,7 +321,7 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./notation.html">Notaitons</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -348,7 +378,7 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
@@ -360,7 +390,7 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notation.html" class="sidebar-item-text sidebar-link">
+  <a href="./notation.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Notaitons</span></a>
   </div>
 </li>
@@ -404,18 +434,8 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
-  <ul class="collapse">
-  <li><a href="#実行環境" id="toc-実行環境" class="nav-link" data-scroll-target="#実行環境">💻 実行環境</a></li>
-  <li><a href="#contributions" id="toc-contributions" class="nav-link" data-scroll-target="#contributions">🧩 Contributions</a></li>
-  </ul></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/RyoNakagami/regression-monkey-nonparametric/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/RyoNakagami/regression-monkey-nonparametric/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -426,7 +446,7 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Regression Monkey Nonparametric Statistics</h1>
+<h1 class="title">Notaitons</h1>
 </div>
 
 
@@ -455,63 +475,24 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
 </header>
 
 
-<p><img src="https://img.shields.io/badge/quarto-1.7.32-blue" class="img-fluid"> <img src="https://img.shields.io/badge/uv-0.8.13-blue" class="img-fluid"> <img src="https://img.shields.io/badge/python-3.13.7-blue" class="img-fluid"></p>
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<section id="実行環境" class="level2">
-<h2 class="anchored" data-anchor-id="実行環境">💻 実行環境</h2>
 <div class="no-border-top-table">
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>項目</th>
-<th>version</th>
+<th>Noation</th>
+<th>Comment</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>OS</td>
-<td>Ubuntu 24.04.3 LTS x86_64</td>
-</tr>
-<tr class="even">
-<td>CPU</td>
-<td>AMD Ryzen 9 7950X (32) @ 5.883GHz</td>
-</tr>
-<tr class="odd">
-<td>GPU</td>
-<td>NVIDIA GeForce RTX 4070</td>
-</tr>
-<tr class="even">
-<td>Python</td>
-<td>3.13.7</td>
-</tr>
-<tr class="odd">
-<td>gcc</td>
-<td>13.3.0</td>
-</tr>
-<tr class="even">
-<td>cuda</td>
-<td>13.0</td>
-</tr>
-<tr class="odd">
-<td>NVIDIA-Driver</td>
-<td>580.65.06</td>
+<td><span class="math inline">\(I(A)\)</span></td>
+<td>Indicator function</td>
 </tr>
 </tbody>
 </table>
 </div>
-</section>
-<section id="contributions" class="level2">
-<h2 class="anchored" data-anchor-id="contributions">🧩 Contributions</h2>
-<ul>
-<li>ノートに関してBUG/Typos/不正確な表記を見つけた場合，まず<a href="https://github.com/RyoNakagami/regression-monkey-nonparametric/issues/new">GitHub Issues</a>でIssue Raiseしていただけると助かります</li>
-<li>右サイドバーの <a href="https://github.com/RyoNakagami/regression-monkey-nonparametric/issues/new">Report an issue</a> をクリックすることで，Issue作成画面に遷移することができます</li>
-<li>修正の必要性の判断は<a href="https://github.com/RyoNakagami">RyoNak</a>が最終的には判断しますが，広く議論できたら幸いです</li>
-</ul>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -928,10 +909,13 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./summary.html" class="pagination-link" aria-label="Book Outline">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Book Outline</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./summary.html" class="pagination-link" aria-label="Book Outline">
-        <span class="nav-page-text">Book Outline</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./notes/density_estimation/introduction.html" class="pagination-link" aria-label="なぜノンパラメトリックか?">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">なぜノンパラメトリックか?</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -952,7 +936,7 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
 </a>
   </li>  
 </ul>
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/RyoNakagami/regression-monkey-nonparametric/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/RyoNakagami/regression-monkey-nonparametric/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="https://github.com/RyoNakagami/regression-monkey-nonparametric/edit/main/notation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/RyoNakagami/regression-monkey-nonparametric/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

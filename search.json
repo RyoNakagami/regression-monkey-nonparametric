@@ -4,19 +4,113 @@
     "href": "index.html",
     "title": "Regression Monkey Nonparametric Statistics",
     "section": "",
-    "text": "Preface\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.\n\\[\n1\n\\]\n\\[\n\\begin{align}\n1 + 1\\\\\n2+2\\\\\n\\frac{2}{4}\\\\\n\\frac{2}{4}\\\\\n\\end{align}\n\\]",
+    "text": "Preface",
     "crumbs": [
       "Preface"
     ]
   },
   {
-    "objectID": "index.html#test",
-    "href": "index.html#test",
+    "objectID": "index.html#実行環境",
+    "href": "index.html#実行環境",
     "title": "Regression Monkey Nonparametric Statistics",
-    "section": "Test",
-    "text": "Test\nThis is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\nTest\n\n\nCode\nprint(1 + 1)\n\n\n2\n\n\nCode\nimport yaml\nimport numpy as np\n\nnp.array([1])\n\n\narray([1])\n\n\n\n\nCode\npyzen\n\n\nThe Zen of Python, by Tim Peters\n\nBeautiful is better than ugly.\nExplicit is better than implicit.\nSimple is better than complex.\nComplex is better than complicated.\nFlat is better than nested.\nSparse is better than dense.\nReadability counts.\nSpecial cases aren't special enough to break the rules.\nAlthough practicality beats purity.\nErrors should never pass silently.\nUnless explicitly silenced.\nIn the face of ambiguity, refuse the temptation to guess.\nThere should be one-- and preferably only one --obvious way to do it.\nAlthough that way may not be obvious at first unless you're Dutch.\nNow is better than never.\nAlthough never is often better than *right* now.\nIf the implementation is hard to explain, it's a bad idea.\nIf the implementation is easy to explain, it may be a good idea.\nNamespaces are one honking great idea -- let's do more of those!\n\n\n\n\n\n\nKnuth, D. E. (1984), 「Literate Programming」, Comput. J., USA: Oxford University Press, Inc., 27, 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "section": "💻 実行環境",
+    "text": "💻 実行環境\n\n\n\n\n項目\nversion\n\n\n\n\nOS\nUbuntu 24.04.3 LTS x86_64\n\n\nCPU\nAMD Ryzen 9 7950X (32) @ 5.883GHz\n\n\nGPU\nNVIDIA GeForce RTX 4070\n\n\nPython\n3.13.7\n\n\ngcc\n13.3.0\n\n\ncuda\n13.0\n\n\nNVIDIA-Driver\n580.65.06",
     "crumbs": [
       "Preface"
+    ]
+  },
+  {
+    "objectID": "index.html#contributions",
+    "href": "index.html#contributions",
+    "title": "Regression Monkey Nonparametric Statistics",
+    "section": "🧩 Contributions",
+    "text": "🧩 Contributions\n\nノートに関してBUG/Typos/不正確な表記を見つけた場合，まずGitHub IssuesでIssue Raiseしていただけると助かります\n右サイドバーの Report an issue をクリックすることで，Issue作成画面に遷移することができます\n修正の必要性の判断はRyoNakが最終的には判断しますが，広く議論できたら幸いです",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "Book Outline",
+    "section": "",
+    "text": "Part 1: 密度関数の推定\nTopics\nReferences",
+    "crumbs": [
+      "Book Outline"
+    ]
+  },
+  {
+    "objectID": "summary.html#part-1-密度関数の推定",
+    "href": "summary.html#part-1-密度関数の推定",
+    "title": "Book Outline",
+    "section": "",
+    "text": "密度関数の形状の推定手法としてのヒストグラムの基本性質\nカーネル型密度関数推定量の基本性質\n\n\n\nノンパラメトリック法: カーネル型推定による統計的性質(前園宜彦 2025,pp. 1–25)\nLockhart (2013)\n\n\n\n\n\nLockhart, R. (2013), “Nonparametric basics: Lecture notes,” Simon Fraser University; https://www.sfu.ca/~lockhart/richard/830/13_3/lectures/nonparametric_basics/notes.pdf.\n\n\n前園宜彦 (2025), ノンパラメトリック法: カーネル型推定による統計的性質, 統計学One point, Tokyo, Japan: 共立出版, p. 128.",
+    "crumbs": [
+      "Book Outline"
+    ]
+  },
+  {
+    "objectID": "notation.html",
+    "href": "notation.html",
+    "title": "Notaitons",
+    "section": "",
+    "text": "Noation\nComment\n\n\n\n\n\\(I(A)\\)\nIndicator function",
+    "crumbs": [
+      "Notaitons"
+    ]
+  },
+  {
+    "objectID": "notes/density_estimation/introduction.html",
+    "href": "notes/density_estimation/introduction.html",
+    "title": "1  なぜノンパラメトリックか?",
+    "section": "",
+    "text": "1.1 1978年と1988年での男性の実質対数賃金分布\nどのような状況においてノンパラメトリック推定が必要になるのかを，DiNardo et al. (1996) を例に説明したいと思います．\nアメリカでは1980年代に賃金格差が拡大されたとされており，その特徴を1979年と1988年での男性の実質対数賃金分布を比較することで検証します．\nDatasetの読み込み\nCode\n#------------------------------------------------------------------------------\n# From BigQuery\n#------------------------------------------------------------------------------\n# # config setup\n# from dotenv import dotenv_values\n# import pathlib\n\n# from regression_monkey_nonparametric import utils as rgm_utils\n\n# ROOT_PATH = pathlib.Path(rgm_utils.git_path_setting())\n# CONFIG = dotenv_values(str(ROOT_PATH / \"env\" / \"config\")) \n\n# GOOGLE_PROJECT = CONFIG['GOOGLE_PROJECT_ID']\n# MEM7988 = rgm_utils.DATASET_CONFIG.dataset['men7988'].source\n\n# # READ DATA FROM BigQuery\n# from google.cloud import bigquery\n\n# client = bigquery.Client(project=CONFIG['GOOGLE_PROJECT_ID'])\n# query = f\"SELECT * FROM {MEM7988}\"\n# df = client.query(query).to_dataframe()\n\n# # Save tmp dataset\n# MEM7988_PATH = ROOT_PATH / \"dataset\" / \"mem7988.parquet\"\n# df.to_parquet(MEM7988_PATH, engine=\"pyarrow\", compression=\"snappy\", index=False)\nCode\n#------------------------------------------------------------------------------\n# From dataset directory\n#------------------------------------------------------------------------------\nimport pathlib\nimport pandas as pd\n\nfrom regression_monkey_nonparametric import utils as rgm_utils\n\nROOT_PATH = pathlib.Path(rgm_utils.git_path_setting())\nMEM7988_PATH = ROOT_PATH / \"dataset\" / \"mem7988.parquet\"\n\ndf = pd.read_parquet(MEM7988_PATH)\ndf.info()\n\n\n&lt;class 'pandas.core.frame.DataFrame'&gt;\nRangeIndex: 151661 entries, 0 to 151660\nData columns (total 15 columns):\n #   Column      Non-Null Count   Dtype  \n---  ------      --------------   -----  \n 0   educ        151661 non-null  Int64  \n 1   exper       151661 non-null  Int64  \n 2   female      151661 non-null  Int64  \n 3   industry    151661 non-null  Int64  \n 4   married     151661 non-null  Int64  \n 5   nonwhite    151661 non-null  Int64  \n 6   occupation  151661 non-null  Int64  \n 7   partt       151661 non-null  Int64  \n 8   region      151661 non-null  Int64  \n 9   smsa        151661 non-null  Int64  \n 10  state       151661 non-null  Int64  \n 11  uhrswk      151661 non-null  Int64  \n 12  wage        151661 non-null  float64\n 13  weight      151661 non-null  float64\n 14  year        151661 non-null  Int64  \ndtypes: Int64(13), float64(2)\nmemory usage: 19.2 MB\n前処理\n元データは名目賃金ベースなので，FREDが提供するCPI推移を用いて，1979年を基準として賃金を実質変換します．\nCode\n# CPI値（例）\ncpi_1979 = 76.7\ncpi_1988 = 120.5\ninfla_ratio = cpi_1979 / cpi_1988\n\n# 1988年ドルを1979年ドルに換算する関数\ndef adjust_to_1979(dollar_1988):\n    return dollar_1988 * infla_ratio\n\n# wage 列をコピーして新しい列を作る（必要に応じて上書き可）\ndf['real_wage'] = df['wage']\n\n# yearが1988の行だけ換算\nmask_1988 = df['year'] == 1988\ndf.loc[mask_1988, 'real_wage'] = df.loc[mask_1988, 'wage'].apply(adjust_to_1979)\n基本統計量\n年度別賃金についての基本統計量を確認してみます．\nCode\ngroup_column = ['year']\ndescribe_column = ['real_wage']\n\n# グループごとの describe\ngroup_stats = df.groupby(group_column)[describe_column].describe().T\n\n# 全体の describe\ntotal_stats = df[describe_column].describe().stack()\n\n# 全体のIndex整理\ntotal_stats = total_stats.to_frame(name=\"Total\")\ntotal_stats.index = total_stats.index.swaplevel(0, 1)\ntotal_stats = total_stats.sort_index()\n\n# groupby の結果と結合\nresult = pd.concat([group_stats, total_stats], axis=1)\nresult.columns.name = group_column[0]\nresult\n\n\n\n\n\n\n\n\n\nyear\n1979\n1988\nTotal\n\n\n\n\nreal_wage\ncount\n77000.000000\n74661.000000\n151661.000000\n\n\nmean\n7.091254\n7.068542\n7.080073\n\n\nstd\n3.798345\n4.355758\n4.082278\n\n\nmin\n1.000000\n1.018423\n1.000000\n\n\n25%\n4.349998\n3.946388\n4.137344\n\n\n50%\n6.349998\n6.288762\n6.339996\n\n\n75%\n8.888885\n8.911203\n8.911203\n\n\nmax\n99.989990\n84.826127\n99.989990\n実質賃金ではないので，注意が必要ですが，少なくとも名目では1988年のほうが賃金の分散が大きくなっていることがわかります． 一般に，対数賃金の分布は正規分布によってよく近似できるとされているので，次に対数変換を処理した上で同じく基本統計量を確認してみます．\nCode\nimport numpy as np\n\nfrom regression_monkey_nonparametric.eda.pandas.summary import create_grouped_describe\n\n# 賃金の対数変換\ndf['log_wage'] = np.log(df['real_wage'])\n\n# 基本統計量\ncreate_grouped_describe(df, group_column, ['log_wage'])\n\n\n\n\n\n\n\n\n\nyear\n1979\n1988\nTotalGroup\n\n\ncolumn\nstat\n\n\n\n\n\n\n\nlog_wage\ncount\n77000.000000\n74661.000000\n151661.000000\n\n\nmean\n1.832631\n1.791661\n1.812462\n\n\nstd\n0.504078\n0.573266\n0.539636\n\n\nmin\n0.000000\n0.018255\n0.000000\n\n\n25%\n1.470175\n1.372801\n1.420054\n\n\n50%\n1.848455\n1.838764\n1.846878\n\n\n75%\n2.184802\n2.187309\n2.187309\n\n\nmax\n4.605070\n4.440604\n4.605070\nこの推定結果をベースに対数賃金についての確率密度関数を可視化します．\nCode\nimport matplotlib.pyplot as plt\nfrom cycler import cycler\nfrom matplotlib.ticker import FuncFormatter\n\nfrom regression_monkey_nonparametric.eda import visualize as rmn_viz\n\ncolor_palette = rmn_viz.okabe_ito_color\nplt.rcParams[\"axes.prop_cycle\"] = cycler(color=color_palette[1:])\nplt.rcParams[\"font.family\"] = \"Meiryo\"\n\nminimumwage_79 = np.log(2.90)\nminimumwage_88 = np.log(3.35 * infla_ratio)\nCode\nfrom scipy.stats import norm\n\n# Compute mean and std of log_wage by year\ngroup_stats = df[\"log_wage\"].groupby(df[\"year\"]).agg([\"mean\", \"std\"])\n\n# Extract values for each year\nmean_79 = group_stats.loc[1979, \"mean\"]\nstd_79 = group_stats.loc[1979, \"std\"]\n\nmean_88 = group_stats.loc[1988, \"mean\"]\nstd_88 = group_stats.loc[1988, \"std\"]\n\n\n# X-axis\nx = np.linspace(np.log(1), max(df['log_wage']), 500)\n\nplt.figure(figsize=(9.6, 6))\nax = plt.gca()\n\n# Normal distributions\nax.plot(x, norm.pdf(x, mean_79, std_79), label=\"1979\", linewidth=2)\nax.plot(x, norm.pdf(x, mean_88, std_88), label=\"1988\", linewidth=2)\n\n# Limit x-axis (log scale)\nplt.xlim(np.log(1.6), np.log(70))  # e.g., show wages from 1 to 15\nplt.ylim(0, 1.1)  # e.g., show wages from 1 to 15\n\n# 最低賃金の縦線\nvlines = [\n    (minimumwage_79, \"1979\\nMin Wage\", -0.05),\n    (minimumwage_88, \"1988\\nMin Wage\", -0.15),\n]\n\nymax = ax.get_ylim()[1]\nlabel_y = ymax * 0.95\n\nfor x, label, x_offset in vlines:\n    # Draw vertical line just below text\n    line_ymax = label_y * 0.95  # slightly below label\n    ax.axvline(\n        x,\n        color=color_palette[-1],\n        linestyle=\"--\",\n        ymin=0,\n        ymax=line_ymax / ymax,\n    )\n\n    # place text slightly above top of plot\n    ymax = ax.get_ylim()[1]\n    ax.text(\n        x + x_offset,\n        line_ymax,\n        label,\n        rotation=0,\n        ha=\"left\",\n        va=\"bottom\",\n        color=color_palette[0],\n    )\n\n\n# Format x-axis: exp back to wage scale\ndef exp_formatter(x, pos):\n    return f\"Log({np.exp(x):.1f})\"  # one decimal, original scale\n\n\n# remove box\nfor spine in plt.gca().spines.values():\n    spine.set_visible(False)\n\nax.xaxis.set_major_formatter(FuncFormatter(exp_formatter))\n\n\nplt.xlabel(\"log_wage\")\nplt.ylabel(\"Density\")\nplt.title(\"正規分布を用いたパラメトリック推定\", fontsize=14)\nplt.xticks(fontsize=10)\nplt.yticks(fontsize=10)\nplt.legend(\n    fontsize=12, frameon=False, loc=\"upper right\", bbox_to_anchor=(1, 0.9)\n)\nplt.grid(axis=\"y\", alpha=0.3)\n\nplt.show()\n\n\n\n\n\n\n\n\nFigure 1.1\n1979年と比較して1988年賃金の分散が大きくなっているので，1988年の賃金分布の裾が厚くなるのは自然ですが，最低賃金の変化がどの層への影響を与えたのかは推測することができません，\nノンパラメトリック推定\nパラメトリック推定では正規分布を仮定して確率密度関数を確認しましたが，次に密度関数の関係形に過程を置かずに推定してみます． bw_method=0.1として，KDE plotを実施したのが以下です:\nCode\n# kdeplot\nplt.figure(figsize=(9.6, 6))\nax = plt.gca()\ndf.groupby([\"year\"])[\"log_wage\"].plot.kde(bw_method=0.1, ax=ax)\n\n# Limit x-axis (log scale)\nplt.xlim(np.log(1.6), np.log(70))  # e.g., show wages from 1 to 15\nplt.ylim(0, 1.1)  # e.g., show wages from 1 to 15\n\n# 最低賃金の縦線\nymax = ax.get_ylim()[1]\nlabel_y = ymax * 0.95\n\nfor x, label, x_offset in vlines:\n    # Draw vertical line just below text\n    line_ymax = label_y * 0.95  # slightly below label\n    ax.axvline(\n        x,\n        color=color_palette[-1],\n        linestyle=\"--\",\n        ymin=0,\n        ymax=line_ymax / ymax,\n    )\n\n    # place text slightly above top of plot\n    ymax = ax.get_ylim()[1]\n    ax.text(\n        x + x_offset,\n        line_ymax,\n        label,\n        rotation=0,\n        ha=\"left\",\n        va=\"bottom\",\n        color=color_palette[0],\n    )\n\n\n# remove box\nfor spine in plt.gca().spines.values():\n    spine.set_visible(False)\n\nax.xaxis.set_major_formatter(FuncFormatter(exp_formatter))\n\n\nplt.xlabel(\"log_wage\")\nplt.ylabel(\"Density\")\nplt.title(\"ノンパラメトリック推定\", fontsize=14)\nplt.xticks(fontsize=10)\nplt.yticks(fontsize=10)\nplt.legend(\n    fontsize=12, frameon=False, loc=\"upper right\", bbox_to_anchor=(1, 0.9)\n)\nplt.grid(axis=\"y\", alpha=0.3)\n\nplt.show()\n\n\n\n\n\n\n\n\nFigure 1.2\nFigure 1.2 では Figure 1.1 で読み取れなかった賃金分布の特徴が確認できます\n上記の情報から，実質最低賃金水準の低下が，「低賃金」グループの実質賃金減少の方向性に影響を与えたため，賃金格差が広がったと推測することができます．\nパラメトリック推定は，関数形の家庭がある程度良い近似になっている場合には強力なツールですが，仮定（対数賃金分布は正規分布で近似できる）が不適切な場合では，データからインサイトを抽出することが難しくなりますし，誤った理解をしてしまう可能性もあります．",
+    "crumbs": [
+      "Part 1: 密度関数の推定",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>なぜノンパラメトリックか?</span>"
+    ]
+  },
+  {
+    "objectID": "notes/density_estimation/introduction.html#年と1988年での男性の実質対数賃金分布",
+    "href": "notes/density_estimation/introduction.html#年と1988年での男性の実質対数賃金分布",
+    "title": "1  なぜノンパラメトリックか?",
+    "section": "",
+    "text": "どちらも最低賃金前後でdensityの傾きが急になっている\n1979年では最低賃金のところで山が１つあり(=賃金がその水準で集中している)，最低賃金が賃金引き下げを防ぐ役割を果たしている\n1988年では最低賃金前後で山はなく，1979年のように賃金の引き下げを防ぐ役割を果たしているとは解釈できない\n\n\n\n\n\n\n\nDiNardo, J., Fortin, N. M., and Lemieux, T. (1996), “Labor market institutions and the distribution of wages, 1973-1992: A semiparametric approach,” Econometrica, USA: The Econometric Society, 64, 1001–1044. https://doi.org/10.2307/2171954.",
+    "crumbs": [
+      "Part 1: 密度関数の推定",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>なぜノンパラメトリックか?</span>"
+    ]
+  },
+  {
+    "objectID": "notes/density_estimation/histogram.html",
+    "href": "notes/density_estimation/histogram.html",
+    "title": "2  ヒストグラムの性質",
+    "section": "",
+    "text": "2.1 経験分布関数\nノンパラメトリックな分布関数推定量として経験分布関数があります．\n経験分布関数(EDF)は，分布関数についての不偏で一致性を持つ推定量として知られています．",
+    "crumbs": [
+      "Part 1: 密度関数の推定",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>ヒストグラムの性質</span>"
+    ]
+  },
+  {
+    "objectID": "notes/density_estimation/histogram.html#経験分布関数",
+    "href": "notes/density_estimation/histogram.html#経験分布関数",
+    "title": "2  ヒストグラムの性質",
+    "section": "",
+    "text": "Definition 2.1 経験分布関数\n\\(\\{X_1, X_2, \\cdots, X_n\\}\\) というデータが与えられたとき，特定の値 \\(x\\) での経験分布関数は次のように定義される\n\\[\n\\begin{align}\nF_n(x) = \\frac{1}{n} \\sum_{i=1}^n\\mathbb{I}(X_i \\leq x)\n\\end{align}\n\\]\n\n\n\nBias, variance, MSE and RMSE\n何かしらのパラメータ \\(\\theta\\) の推定量の性質を考えるとき，基本的には推定誤差\n\\[\n\\hat\\theta - \\theta\n\\]\nの分布についてまず考えます．ノンパラメトリックのi.i.dサンプリングモデルにおいては，\n\\[\n\\hat F(x) - F(x)\n\\]\nになります．この評価手法の１例としてRMSEが挙げられます．\n\\[\n\\operatorname{RMSE} = \\sqrt{\\mathbb E_{\\pmb\\theta}[(\\hat\\theta - \\theta)^2]}\n\\]\nRMSEの単位は \\(\\theta\\) の単位と同じなので，誤差のスケールを直感的に理解しやすいというメリットがあります．ただし，推定量の性質を考えるときはMSEのほうが取り回しが良いときが多いのでMSEの次に考えます．\n\nDefinition 2.2 MSE\n\n\\[\n\\begin{align}\n\\operatorname{MSE}\n  &= \\mathbb E_{\\pmb\\theta}[(\\hat\\theta - \\theta)^2] \\\\\n  &= \\mathbb E_{\\pmb\\theta}[(\\hat\\theta - \\mathbb E_{\\pmb\\theta}[\\hat\\theta] + \\mathbb E_{\\pmb\\theta}[\\hat\\theta] - \\theta)^2] \\\\\n  &= \\mathbb E_{\\pmb\\theta}[(\\hat\\theta - \\mathbb E_{\\pmb\\theta}[\\hat\\theta])^2] + \\mathbb E_{\\pmb\\theta}[(\\mathbb E_{\\pmb\\theta}[\\hat\\theta] - \\theta)^2] + 2\\mathbb E_{\\pmb\\theta}[(\\hat\\theta - \\mathbb E_{\\pmb\\theta}[\\hat\\theta])(\\mathbb E_{\\pmb\\theta}[\\hat\\theta] - \\theta)] \\\\\n  &= \\mathbb E_{\\pmb\\theta}[(\\hat\\theta - \\mathbb E_{\\pmb\\theta}[\\hat\\theta])^2] + (\\mathbb E_{\\pmb\\theta}[\\hat\\theta] - \\theta)^2 \\\\\n  &= \\operatorname{Variance} + \\operatorname{Bias}^2\n\\end{align}\n\\]\n\n\nUnibasedness of EDF\n\nProposition 2.1 経験分布関数と不偏性\n\\[\n\\mathbb E[F_n(x)] = F(x)\n\\]\n\n\nProof. \\[\n\\begin{align}\n\\mathbb E[F_n(x)]\n  &= \\mathbb E\\left[\\frac{1}{n}\\sum_{i=1}^nI(X_i \\leq x)\\right] \\\\\n  &= \\frac{1}{n}\\sum_{i=1}^n\\mathbb E[I(X_i \\leq x)] \\\\\n  &= \\frac{1}{n}\\sum_{i=1}^n\\mathbb P(X_i \\leq x)\\\\\n  &= \\frac{1}{n}\\sum_{i=1}^nF(x)\\\\\n  &= F(x)\n\\end{align}\n\\]\n\\[\\tag*{$\\blacksquare$}\\]\n\n\nVariance of EDF\n\nProposition 2.2 経験分布関数と分散\n\\[\n\\begin{align}\n\\operatorname{Var}(F_n(x)) = \\frac{F(x)(1- F(x))}{n}\n\\end{align}\n\\]\n\n\nProof. \\[\n\\begin{align}\n\\operatorname{MSE}\n  &= \\operatorname{Var}(F_n(x))\\\\\n  &= \\frac{1}{n^2}\\sum_{i=1}^n\\operatorname{Var}[I(X_i \\leq x)]\\\\\n  &= \\frac{1}{n}F(x)(1- F(x))\n\\end{align}\n\\]\n\\[\\tag*{$\\blacksquare$}\\]\n\n\n\nRemark 2.1. \n\nMSEは \\(1/n\\) の大きさに比例する = \\(\\mathcal{O}(n^{-1})\\)\nRMSEは \\(1/\\sqrt{n}\\) の大きさに比例する = \\(\\mathcal{O}(\\sqrt{n}^{-1})\\)\n\n\n\n\nStandard Errors and Interval Estimation\n\\(F(x)\\) のPointwise Confidence Intervalを考えます．Proposition 2.2 より\n\n\\[\n\\begin{align}\n\\operatorname{SE} \\equiv \\sigma_{F_n(x)} = \\sqrt{\\frac{F(x)(1- F(x))}{n}}\n\\end{align}\n\\]\n\nCLTより\n\n\\[\n\\begin{align}\n\\frac{F_n(x) - F(x)}{\\sigma_{F_n(x)}} \\overset{d}{\\to} N(0, 1) \\label{eq-clt}\n\\end{align}\n\\]\n\nつまり漸近的に，\\(x\\) における \\(1 - \\alpha\\) Pointwise confidence intervalは，\\(z_\\alpha\\) をcritical point(棄却限界)とすると\n\n\\[\n\\begin{align}\n\\left| \\frac{F_n(x) - F(x)}{\\sigma_{F_n(x)}} \\right| \\leq z_{\\alpha/2} \\label{eq-interval}\n\\end{align}\n\\]\n\nを満たすIntervalを導出すれば良いことになります．\n\n\n\n\n\n\nTip\n\n\n\nなおここでは説明しないですが，\\(n\\) が大きくなるにつれて，\\(F_n(x)\\) は \\(x\\) について一様に \\(F(x)\\) に収束することが知られています．\n\nTheorem 2.1 Glivenko-Cantelliの定理\n確率 \\(1\\) で\n\n\\[\n\\begin{align}\n\\sup_{x\\in\\mathbb R} |F_n(x) - F(x)| \\to 0\n\\end{align}\n\\]\n\n\n\n\nPlugin Procedure\n\\(\\eqref{eq-interval}\\) を計算するためには \\(\\sigma_{F_n(x)}\\) が必要になりますが，\\(\\sqrt{F(x)(1- F(x))/n}\\) とunknown parameterを含んでしまっています．そこで，\\(\\sigma_{F_n(x)}\\) 代替手段として\n\n\\[\n\\begin{align}\n\\hat\\sigma_{F_n(x)} = \\sqrt{\\frac{F_n(x)(1- F_n(x))}{n}}\n\\end{align}\n\\]\n\n\\(F(x)\\) の部分に \\(F_n(x)\\) を以下のようにpluginするのでPlugin Procedureと呼んだりします．\n\n\\[\n\\begin{align}\n\\frac{F_n(x) - F(x)}{\\hat\\sigma_{F_n(x)}} \\label{eq-plugin}\n\\end{align}\n\\]\n\n次に，\\(\\eqref{eq-plugin}\\) の漸近分布を考えます．\n\\[\ng(t) = t(1 - t)\n\\]\nは \\(t \\in (0, 1)\\) で連続なので連続写像定理より，\\(F_n(x) \\overset{p}{\\to} F(x)\\) であるので\n\\[\nF_n(x)(1- F_n(x)) \\overset{p}{\\to} F(x)(1- F(x))\n\\]\n従って，\n\\[\n\\hat\\sigma_{F_n(x)} \\overset{p}{\\to} \\sigma_{F_n(x)}\n\\]\n次にSlutskyの定理を適用すると\n\n\\[\n\\begin{align}\n\\frac{F_n(x) - F(x)}{\\hat\\sigma_{F_n(x)}}\n  &= \\frac{F_n(x) - F(x)}{\\sigma_{F_n(x)}}\\frac{{\\sigma_{F_n(x)}}}{\\hat\\sigma_{F_n(x)}}\\\\\n  &\\overset{d}{\\to} N(0, 1)\n\\end{align}\n\\]\n\n従って，pointwise 95% confidence intervalは\n\n\\[\n\\begin{align}\nF_n(x) \\pm z_{0.025}\\sqrt{\\frac{F_n(x)(1- F_n(x))}{n}} \\label{eq-plugin-ci}\n\\end{align}\n\\]\n\nPointwise CIの問題点\n\\(\\eqref{eq-plugin-ci}\\) は各点 \\(x\\) に応じて定まるという問題点があります．例えば，\\(x \\in (0, 1)\\) 区間で推定したEDFに基づいて分布関数をプロットしたとします．\\(x \\in (0, 1)\\) を20個 pickupしてCIをプロットしたとしても，少なくとも１つくらいは完全にtargetとなるようなtrue CDFから逸脱したplotとなっているはずです．\nEDF推定量を用いた分析で本当にほしいIntervalはPointwise CIではなく，\n\\[\nP_F (L(X, x) \\leq F(x) \\leq U(X, x) \\,  \\ \\forall x) \\geq 1 − \\alpha\n\\]\nとなるようなCI, simultaneous CIの場合が多いはずです．too conservativeすぎてあまり使われないですが，１つの手法としてDvoretsky-Kiefer-Wolfowitz inequalityがあります．\n\\[\n\\operatorname{Pr}\\left(\\sqrt{n}\\sup_{x\\in\\mathbb{R}}\\left|F_{n}\\left(x\\right) - F\\left(x\\right)\\right| &gt; \\epsilon\\right) \\leq 2e^{-2\\epsilon^{2}}\n\\]\nこれを変形させると\n\\[\n\\operatorname{Pr}\\left(\\sup_{x\\in\\mathbb{R}}\\left|F_{n}\\left(x\\right) - F\\left(x\\right)\\right| &gt; \\sqrt{\\frac{-\\log(\\alpha/2)}{2n}}\\right) \\leq \\alpha\n\\]\n最後の式変形は\n\\(\\{X_1, X_2, \\cdots, X_n\\}\\) の実現値 \\(x_1, \\cdots, x_n\\) を固定して考えると，もし互いに全てバラバラな値のときは， \\(F_n(x)\\) は各 \\(x_i\\) で \\(1/n\\) だけジャンプし，他の \\(x\\) については平らな階段関数(右側連続関数)となります．階段関数は微分不可能なので，分布関数が推定できたとしても密度関数の推定量を経験分布関数から構成することはなにか別の方法を考える必要があります．",
+    "crumbs": [
+      "Part 1: 密度関数の推定",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>ヒストグラムの性質</span>"
+    ]
+  },
+  {
+    "objectID": "glossary.html",
+    "href": "glossary.html",
+    "title": "Glossary",
+    "section": "",
+    "text": "用語\nComment\n\n\n\n\nCPS\nCurrent Population Survey\n\n\nノンパラメトリック推定\n何らかの関数を推定する際に，事前に関数系を特定せずに推定する方法",
+    "crumbs": [
+      "Glossary"
     ]
   },
   {
@@ -24,7 +118,7 @@
     "href": "references.html",
     "title": "References",
     "section": "",
-    "text": "Knuth, D. E. (1984), “Literate programming,” Comput.\nJ., USA: Oxford University Press, Inc., 27, 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "text": "DiNardo, J., Fortin, N. M., and Lemieux, T. (1996), “Labor market\ninstitutions and the distribution of wages, 1973-1992: A semiparametric\napproach,” Econometrica, USA: The Econometric Society,\n64, 1001–1044. https://doi.org/10.2307/2171954.\n\n\nLockhart, R. (2013), “Nonparametric basics: Lecture notes,”\nSimon Fraser University; https://www.sfu.ca/~lockhart/richard/830/13_3/lectures/nonparametric_basics/notes.pdf.\n\n\n前園宜彦 (2025), ノンパラメトリック法:\nカーネル型推定による統計的性質, 統計学One point, Tokyo, Japan:\n共立出版, p. 128.",
     "crumbs": [
       "References"
     ]

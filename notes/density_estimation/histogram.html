@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-09-01">
 
-<title>Regression Monkey Nonparametric Statistics</title>
+<title>2&nbsp; ヒストグラムの性質 – Regression Monkey Nonparametric Statistics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,31 +24,33 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./summary.html" rel="next">
-<link href="./include/pictures/favicon.ico" rel="icon">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-0348920b7671f696dc9078d39bff215e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-42d661d24e4f8d1bcb498b68b8f8bc02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-6afdcbb8c7ffbd56dfe9d9a8b5577d03.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-42d661d24e4f8d1bcb498b68b8f8bc02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script src="site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
-<link href="site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../glossary.html" rel="next">
+<link href="../../notes/density_estimation/introduction.html" rel="prev">
+<link href="../../include/pictures/favicon.ico" rel="icon">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-0348920b7671f696dc9078d39bff215e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-42d661d24e4f8d1bcb498b68b8f8bc02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-6afdcbb8c7ffbd56dfe9d9a8b5577d03.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-42d661d24e4f8d1bcb498b68b8f8bc02.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
+<link href="../../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/reveal_vspace-1.0.0/reveal_vspace.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -117,6 +119,35 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
     })(window,document,'script','dataLayer','GTM-M27Z2BWG');</script>
 <!-- End Google Tag Manager -->
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -291,7 +322,7 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/density_estimation/introduction.html">Part 1: 密度関数の推定</a></li><li class="breadcrumb-item"><a href="../../notes/density_estimation/histogram.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">ヒストグラムの性質</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -306,7 +337,7 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Regression Monkey Nonparametric Statistics</a> 
+      <a href="../../">Regression Monkey Nonparametric Statistics</a> 
         <div class="sidebar-tools-main tools-wide">
     <div class="dropdown">
       <a href="" title="Blog Series" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Blog Series"><i class="bi bi-book"></i></a>
@@ -348,19 +379,19 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+  <a href="../../summary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Book Outline</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Notaitons</span></a>
   </div>
 </li>
@@ -375,13 +406,13 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notes/density_estimation/introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notes/density_estimation/introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">なぜノンパラメトリックか?</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./notes/density_estimation/histogram.html" class="sidebar-item-text sidebar-link">
+  <a href="../../notes/density_estimation/histogram.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">ヒストグラムの性質</span></span></a>
   </div>
 </li>
@@ -389,13 +420,13 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glossary.html" class="sidebar-item-text sidebar-link">
+  <a href="../../glossary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Glossary</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="../../references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -409,13 +440,13 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
+  <li><a href="#経験分布関数" id="toc-経験分布関数" class="nav-link active" data-scroll-target="#経験分布関数"><span class="header-section-number">2.1</span> 経験分布関数</a>
   <ul class="collapse">
-  <li><a href="#実行環境" id="toc-実行環境" class="nav-link" data-scroll-target="#実行環境">💻 実行環境</a></li>
-  <li><a href="#contributions" id="toc-contributions" class="nav-link" data-scroll-target="#contributions">🧩 Contributions</a></li>
+  <li><a href="#bias-variance-mse-and-rmse" id="toc-bias-variance-mse-and-rmse" class="nav-link" data-scroll-target="#bias-variance-mse-and-rmse">Bias, variance, MSE and RMSE</a></li>
+  <li><a href="#standard-errors-and-interval-estimation" id="toc-standard-errors-and-interval-estimation" class="nav-link" data-scroll-target="#standard-errors-and-interval-estimation">Standard Errors and Interval Estimation</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/RyoNakagami/regression-monkey-nonparametric/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/RyoNakagami/regression-monkey-nonparametric/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/RyoNakagami/regression-monkey-nonparametric/edit/main/notes/density_estimation/histogram.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/RyoNakagami/regression-monkey-nonparametric/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -424,9 +455,9 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M27Z2BWG" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notes/density_estimation/introduction.html">Part 1: 密度関数の推定</a></li><li class="breadcrumb-item"><a href="../../notes/density_estimation/histogram.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">ヒストグラムの性質</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Regression Monkey Nonparametric Statistics</h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">ヒストグラムの性質</span></h1>
 </div>
 
 
@@ -455,59 +486,231 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
 </header>
 
 
-<p><img src="https://img.shields.io/badge/quarto-1.7.32-blue" class="img-fluid"> <img src="https://img.shields.io/badge/uv-0.8.13-blue" class="img-fluid"> <img src="https://img.shields.io/badge/python-3.13.7-blue" class="img-fluid"></p>
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<section id="実行環境" class="level2">
-<h2 class="anchored" data-anchor-id="実行環境">💻 実行環境</h2>
-<div class="no-border-top-table">
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>項目</th>
-<th>version</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>OS</td>
-<td>Ubuntu 24.04.3 LTS x86_64</td>
-</tr>
-<tr class="even">
-<td>CPU</td>
-<td>AMD Ryzen 9 7950X (32) @ 5.883GHz</td>
-</tr>
-<tr class="odd">
-<td>GPU</td>
-<td>NVIDIA GeForce RTX 4070</td>
-</tr>
-<tr class="even">
-<td>Python</td>
-<td>3.13.7</td>
-</tr>
-<tr class="odd">
-<td>gcc</td>
-<td>13.3.0</td>
-</tr>
-<tr class="even">
-<td>cuda</td>
-<td>13.0</td>
-</tr>
-<tr class="odd">
-<td>NVIDIA-Driver</td>
-<td>580.65.06</td>
-</tr>
-</tbody>
-</table>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+セットアップ
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="reveal_vspace" style="--vspace-height: 1em;"></div>
+<p>このノートでは密度関数の推定量としてのヒストグラムを考えるので，確率変数の母集団分布は連続型とする．</p>
+<p><span class="math display">\[
+\{X_1, X_2, \cdots, X_n\}
+\]</span></p>
+<p>を互いに独立で同じ分布関数 <span class="math inline">\(F(\cdot)\)</span> に従う確率変数とし，密度関数 <span class="math inline">\(f(\cdot)\)</span> を持つものとする</p>
+</div>
+</div>
+<section id="経験分布関数" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="経験分布関数"><span class="header-section-number">2.1</span> 経験分布関数</h2>
+<p>ノンパラメトリックな分布関数推定量として経験分布関数があります．</p>
+<div id="def-edf" class="custom_problem blog-custom-border theorem definition">
+<p><span class="theorem-title"><strong>Definition 2.1</strong></span> <span class="def-title">経験分布関数</span></p>
+<p><span class="math inline">\(\{X_1, X_2, \cdots, X_n\}\)</span> というデータが与えられたとき，特定の値 <span class="math inline">\(x\)</span> での経験分布関数は次のように定義される</p>
+<p><span class="math display">\[
+\begin{align}
+F_n(x) = \frac{1}{n} \sum_{i=1}^n\mathbb{I}(X_i \leq x)
+\end{align}
+\]</span></p>
+</div>
+<p>経験分布関数(EDF)は，分布関数についての不偏で一致性を持つ推定量として知られています．</p>
+<section id="bias-variance-mse-and-rmse" class="level3">
+<h3 class="anchored" data-anchor-id="bias-variance-mse-and-rmse">Bias, variance, MSE and RMSE</h3>
+<p>何かしらのパラメータ <span class="math inline">\(\theta\)</span> の推定量の性質を考えるとき，基本的には推定誤差</p>
+<p><span class="math display">\[
+\hat\theta - \theta
+\]</span></p>
+<p>の分布についてまず考えます．ノンパラメトリックのi.i.dサンプリングモデルにおいては，</p>
+<p><span class="math display">\[
+\hat F(x) - F(x)
+\]</span></p>
+<p>になります．この評価手法の１例としてRMSEが挙げられます．</p>
+<p><span class="math display">\[
+\operatorname{RMSE} = \sqrt{\mathbb E_{\pmb\theta}[(\hat\theta - \theta)^2]}
+\]</span></p>
+<p>RMSEの単位は <span class="math inline">\(\theta\)</span> の単位と同じなので，誤差のスケールを直感的に理解しやすいというメリットがあります．ただし，推定量の性質を考えるときはMSEのほうが取り回しが良いときが多いのでMSEの次に考えます．</p>
+<div id="def-" class="custom_problem blog-custom-border theorem definition">
+<p><span class="theorem-title"><strong>Definition 2.2</strong></span> <span class="def-title">MSE</span></p>
+<div class="math-scroll">
+<p><span class="math display">\[
+\begin{align}
+\operatorname{MSE}
+  &amp;= \mathbb E_{\pmb\theta}[(\hat\theta - \theta)^2] \\
+  &amp;= \mathbb E_{\pmb\theta}[(\hat\theta - \mathbb E_{\pmb\theta}[\hat\theta] + \mathbb E_{\pmb\theta}[\hat\theta] - \theta)^2] \\
+  &amp;= \mathbb E_{\pmb\theta}[(\hat\theta - \mathbb E_{\pmb\theta}[\hat\theta])^2] + \mathbb E_{\pmb\theta}[(\mathbb E_{\pmb\theta}[\hat\theta] - \theta)^2] + 2\mathbb E_{\pmb\theta}[(\hat\theta - \mathbb E_{\pmb\theta}[\hat\theta])(\mathbb E_{\pmb\theta}[\hat\theta] - \theta)] \\
+  &amp;= \mathbb E_{\pmb\theta}[(\hat\theta - \mathbb E_{\pmb\theta}[\hat\theta])^2] + (\mathbb E_{\pmb\theta}[\hat\theta] - \theta)^2 \\
+  &amp;= \operatorname{Variance} + \operatorname{Bias}^2
+\end{align}
+\]</span></p>
+</div>
+</div>
+<p><span class="mini-section">Unibasedness of EDF</span></p>
+<div id="prp-" class="custom_problem blog-custom-border theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 2.1</strong></span> <span class="def-title">経験分布関数と不偏性</span></p>
+<p><span class="math display">\[
+\mathbb E[F_n(x)] = F(x)
+\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span><span class="math display">\[
+\begin{align}
+\mathbb E[F_n(x)]
+  &amp;= \mathbb E\left[\frac{1}{n}\sum_{i=1}^nI(X_i \leq x)\right] \\
+  &amp;= \frac{1}{n}\sum_{i=1}^n\mathbb E[I(X_i \leq x)] \\
+  &amp;= \frac{1}{n}\sum_{i=1}^n\mathbb P(X_i \leq x)\\
+  &amp;= \frac{1}{n}\sum_{i=1}^nF(x)\\
+  &amp;= F(x)
+\end{align}
+\]</span></p>
+<p><span class="math display">\[\tag*{$\blacksquare$}\]</span></p>
+</div>
+<hr>
+<p><span class="mini-section">Variance of EDF</span></p>
+<div id="prp-edf-variance" class="custom_problem blog-custom-border theorem proposition">
+<p><span class="theorem-title"><strong>Proposition 2.2</strong></span> <span class="def-title">経験分布関数と分散</span></p>
+<p><span class="math display">\[
+\begin{align}
+\operatorname{Var}(F_n(x)) = \frac{F(x)(1- F(x))}{n}
+\end{align}
+\]</span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span><span class="math display">\[
+\begin{align}
+\operatorname{MSE}
+  &amp;= \operatorname{Var}(F_n(x))\\
+  &amp;= \frac{1}{n^2}\sum_{i=1}^n\operatorname{Var}[I(X_i \leq x)]\\
+  &amp;= \frac{1}{n}F(x)(1- F(x))
+\end{align}
+\]</span></p>
+<p><span class="math display">\[\tag*{$\blacksquare$}\]</span></p>
+</div>
+<hr>
+<div id="rem-" class="custom_problem blog-custom-border proof remark">
+<p><span class="proof-title"><em>Remark 2.1</em>. </span></p>
+<ul>
+<li>MSEは <span class="math inline">\(1/n\)</span> の大きさに比例する = <span class="math inline">\(\mathcal{O}(n^{-1})\)</span></li>
+<li>RMSEは <span class="math inline">\(1/\sqrt{n}\)</span> の大きさに比例する = <span class="math inline">\(\mathcal{O}(\sqrt{n}^{-1})\)</span></li>
+</ul>
 </div>
 </section>
-<section id="contributions" class="level2">
-<h2 class="anchored" data-anchor-id="contributions">🧩 Contributions</h2>
-<ul>
-<li>ノートに関してBUG/Typos/不正確な表記を見つけた場合，まず<a href="https://github.com/RyoNakagami/regression-monkey-nonparametric/issues/new">GitHub Issues</a>でIssue Raiseしていただけると助かります</li>
-<li>右サイドバーの <a href="https://github.com/RyoNakagami/regression-monkey-nonparametric/issues/new">Report an issue</a> をクリックすることで，Issue作成画面に遷移することができます</li>
-<li>修正の必要性の判断は<a href="https://github.com/RyoNakagami">RyoNak</a>が最終的には判断しますが，広く議論できたら幸いです</li>
-</ul>
+<section id="standard-errors-and-interval-estimation" class="level3">
+<h3 class="anchored" data-anchor-id="standard-errors-and-interval-estimation">Standard Errors and Interval Estimation</h3>
+<p><span class="math inline">\(F(x)\)</span> のPointwise Confidence Intervalを考えます．<a href="#prp-edf-variance" class="quarto-xref">Proposition&nbsp;<span>2.2</span></a> より</p>
+<div class="math-scroll">
+<p><span class="math display">\[
+\begin{align}
+\operatorname{SE} \equiv \sigma_{F_n(x)} = \sqrt{\frac{F(x)(1- F(x))}{n}}
+\end{align}
+\]</span></p>
+</div>
+<p>CLTより</p>
+<div class="math-scroll">
+<p><span class="math display">\[
+\begin{align}
+\frac{F_n(x) - F(x)}{\sigma_{F_n(x)}} \overset{d}{\to} N(0, 1) \label{eq-clt}
+\end{align}
+\]</span></p>
+</div>
+<p>つまり漸近的に，<span class="math inline">\(x\)</span> における <span class="math inline">\(1 - \alpha\)</span> Pointwise confidence intervalは，<span class="math inline">\(z_\alpha\)</span> をcritical point(棄却限界)とすると</p>
+<div class="math-scroll">
+<p><span class="math display">\[
+\begin{align}
+\left| \frac{F_n(x) - F(x)}{\sigma_{F_n(x)}} \right| \leq z_{\alpha/2} \label{eq-interval}
+\end{align}
+\]</span></p>
+</div>
+<p>を満たすIntervalを導出すれば良いことになります．</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>なおここでは説明しないですが，<span class="math inline">\(n\)</span> が大きくなるにつれて，<span class="math inline">\(F_n(x)\)</span> は <span class="math inline">\(x\)</span> について一様に <span class="math inline">\(F(x)\)</span> に収束することが知られています．</p>
+<div id="thm-glivenko-cantelli" class="custom_problem theorem">
+<p><span class="theorem-title"><strong>Theorem 2.1</strong></span> <span class="def-title">Glivenko-Cantelliの定理</span></p>
+<p>確率 <span class="math inline">\(1\)</span> で</p>
+<div class="math-scroll">
+<p><span class="math display">\[
+\begin{align}
+\sup_{x\in\mathbb R} |F_n(x) - F(x)| \to 0
+\end{align}
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><span class="mini-section">Plugin Procedure</span></p>
+<p><span class="math inline">\(\eqref{eq-interval}\)</span> を計算するためには <span class="math inline">\(\sigma_{F_n(x)}\)</span> が必要になりますが，<span class="math inline">\(\sqrt{F(x)(1- F(x))/n}\)</span> とunknown parameterを含んでしまっています．そこで，<span class="math inline">\(\sigma_{F_n(x)}\)</span> 代替手段として</p>
+<div class="math-scroll">
+<p><span class="math display">\[
+\begin{align}
+\hat\sigma_{F_n(x)} = \sqrt{\frac{F_n(x)(1- F_n(x))}{n}}
+\end{align}
+\]</span></p>
+</div>
+<p><span class="math inline">\(F(x)\)</span> の部分に <span class="math inline">\(F_n(x)\)</span> を以下のようにpluginするのでPlugin Procedureと呼んだりします．</p>
+<div class="math-scroll">
+<p><span class="math display">\[
+\begin{align}
+\frac{F_n(x) - F(x)}{\hat\sigma_{F_n(x)}} \label{eq-plugin}
+\end{align}
+\]</span></p>
+</div>
+<p>次に，<span class="math inline">\(\eqref{eq-plugin}\)</span> の漸近分布を考えます．</p>
+<p><span class="math display">\[
+g(t) = t(1 - t)
+\]</span></p>
+<p>は <span class="math inline">\(t \in (0, 1)\)</span> で連続なので連続写像定理より，<span class="math inline">\(F_n(x) \overset{p}{\to} F(x)\)</span> であるので</p>
+<p><span class="math display">\[
+F_n(x)(1- F_n(x)) \overset{p}{\to} F(x)(1- F(x))
+\]</span></p>
+<p>従って，</p>
+<p><span class="math display">\[
+\hat\sigma_{F_n(x)} \overset{p}{\to} \sigma_{F_n(x)}
+\]</span></p>
+<p>次にSlutskyの定理を適用すると</p>
+<div class="math-scroll">
+<p><span class="math display">\[
+\begin{align}
+\frac{F_n(x) - F(x)}{\hat\sigma_{F_n(x)}}
+  &amp;= \frac{F_n(x) - F(x)}{\sigma_{F_n(x)}}\frac{{\sigma_{F_n(x)}}}{\hat\sigma_{F_n(x)}}\\
+  &amp;\overset{d}{\to} N(0, 1)
+\end{align}
+\]</span></p>
+</div>
+<p>従って，pointwise 95% confidence intervalは</p>
+<div class="math-scroll">
+<p><span class="math display">\[
+\begin{align}
+F_n(x) \pm z_{0.025}\sqrt{\frac{F_n(x)(1- F_n(x))}{n}} \label{eq-plugin-ci}
+\end{align}
+\]</span></p>
+</div>
+<p><span class="mini-section">Pointwise CIの問題点</span></p>
+<p><span class="math inline">\(\eqref{eq-plugin-ci}\)</span> は各点 <span class="math inline">\(x\)</span> に応じて定まるという問題点があります．例えば，<span class="math inline">\(x \in (0, 1)\)</span> 区間で推定したEDFに基づいて分布関数をプロットしたとします．<span class="math inline">\(x \in (0, 1)\)</span> を20個 pickupしてCIをプロットしたとしても，少なくとも１つくらいは完全にtargetとなるようなtrue CDFから逸脱したplotとなっているはずです．</p>
+<p>EDF推定量を用いた分析で本当にほしいIntervalはPointwise CIではなく，</p>
+<p><span class="math display">\[
+P_F (L(X, x) \leq F(x) \leq U(X, x) \,  \ \forall x) \geq 1 − \alpha
+\]</span></p>
+<p>となるようなCI, simultaneous CIの場合が多いはずです．too conservativeすぎてあまり使われないですが，１つの手法としてDvoretsky-Kiefer-Wolfowitz inequalityがあります．</p>
+<p><span class="math display">\[
+\operatorname{Pr}\left(\sqrt{n}\sup_{x\in\mathbb{R}}\left|F_{n}\left(x\right) - F\left(x\right)\right| &gt; \epsilon\right) \leq 2e^{-2\epsilon^{2}}
+\]</span></p>
+<p>これを変形させると</p>
+<p><span class="math display">\[
+\operatorname{Pr}\left(\sup_{x\in\mathbb{R}}\left|F_{n}\left(x\right) - F\left(x\right)\right| &gt; \sqrt{\frac{-\log(\alpha/2)}{2n}}\right) \leq \alpha
+\]</span></p>
+<p>最後の式変形は</p>
+<p><span class="math inline">\(\{X_1, X_2, \cdots, X_n\}\)</span> の実現値 <span class="math inline">\(x_1, \cdots, x_n\)</span> を固定して考えると，もし互いに全てバラバラな値のときは， <span class="math inline">\(F_n(x)\)</span> は各 <span class="math inline">\(x_i\)</span> で <span class="math inline">\(1/n\)</span> だけジャンプし，他の <span class="math inline">\(x\)</span> については平らな階段関数(右側連続関数)となります．階段関数は微分不可能なので，分布関数が推定できたとしても密度関数の推定量を経験分布関数から構成することはなにか別の方法を考える必要があります．</p>
 
 
 </section>
@@ -928,10 +1131,13 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../../notes/density_estimation/introduction.html" class="pagination-link" aria-label="なぜノンパラメトリックか?">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">なぜノンパラメトリックか?</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./summary.html" class="pagination-link" aria-label="Book Outline">
-        <span class="nav-page-text">Book Outline</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../glossary.html" class="pagination-link" aria-label="Glossary">
+        <span class="nav-page-text">Glossary</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -947,12 +1153,12 @@ gtag('config', 'G-QEFX7FVCDM', { 'anonymize_ip': true});
  © Copyright RyoNak
   </li>  
     <li class="nav-item">
-    <a class="nav-link" href="./LICENSE">
+    <a class="nav-link" href="../../LICENSE">
 <p>LICENSE</p>
 </a>
   </li>  
 </ul>
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/RyoNakagami/regression-monkey-nonparametric/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/RyoNakagami/regression-monkey-nonparametric/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/RyoNakagami/regression-monkey-nonparametric/edit/main/notes/density_estimation/histogram.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/RyoNakagami/regression-monkey-nonparametric/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
