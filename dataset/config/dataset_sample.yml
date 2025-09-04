@@ -1,0 +1,54 @@
+dataset:
+  men7988:
+    description: "the CPSから取得した男性の1979年と1988年の所得データ"
+    source_type: "BigQuery"
+    source: "`xxx.xxx.men7988`"
+    comment: "男性のみ, yearも1979と1988年に限定"
+    metadata:
+      fields:
+        - name: educ
+          description: "学歴（年数）"
+          type: int
+        - name: exper
+          description: "職務経験年数"
+          type: int
+        - name: female
+          description: "性別（男性=0、女性=1）"
+          type: int
+        - name: industry
+          description: "所属産業コード"
+          type: int
+        - name: married
+          description: "既婚フラグ"
+          type: int
+        - name: nonwhite
+          description: "非白人フラグ"
+          type: int
+        - name: occupation
+          description: "職業コード"
+          type: int
+        - name: partt
+          description: "パートタイム勤務フラグ"
+          type: int
+        - name: region
+          description: "居住地域コード"
+          type: int
+        - name: smsa
+          description: "都市居住フラグ（Standard Metropolitan Statistical Area）"
+          type: int
+        - name: state
+          description: "州コード"
+          type: int
+        - name: uhrswk
+          description: "週労働時間"
+          type: int
+        - name: wage
+          description: "時給（ドル）"
+          type: float
+        - name: weight
+          description: "サンプル重み"
+          type: float
+        - name: year
+          description: "観測年（1979 または 1988）"
+          type: int
+    updated_date: "2025-09-04"

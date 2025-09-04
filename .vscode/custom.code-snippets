@@ -7,20 +7,13 @@
     "prefix": "title",
     "body": [
       "---",
-      "title: \"自分用VSCodeショートカットシート\"",
-      "author: \"Ryo Nakagami\"",
-      "date: \"2025-12-19\"",
-      "date-modified: \"2025-12-19\"",
-      "categories: [環境構築]",
-      "listing_category: development",
-      "comments:",
-      "  utterances:",
-      "       repo: RyoNakagami/regmonkey-datascience-blog",
-      "       label: discussion",
-      "       issue-term: title",
+      "title: xxx",
+      "engine: knitr",
+      "date: \"2025-08-26\"",
+      "date-modified: \"2025-08-28\"",
       "---",
     ],
-    "description": ""
+    "description": "quarto book title"
   },
   // --------------------------------------------
   // sections
@@ -75,6 +68,18 @@
   // --------------------------------------------
   // math related
   // --------------------------------------------
+  "begin align-plain": {
+    "prefix": "tex",
+    "body": [
+      "::: {.math-scroll}",
+      "$$",
+      "\\begin{align}",
+      "\\end{align}",
+      "$$",
+      ":::"
+    ],
+    "description": "markdownでbegin{align*}end{align*}を入力"
+  },
   "Definition": {
     "scope": "quarto",
     "prefix": "def",
@@ -227,7 +232,7 @@
     "scope": "quarto",
     "prefix": "eqref",
     "body": [
-      "{#eq-}"
+      "\\eqref{eq-}"
     ],
     "description": "tag"
   },

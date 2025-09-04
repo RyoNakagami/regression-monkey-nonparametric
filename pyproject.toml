@@ -29,8 +29,13 @@ book = [
     "pyyaml>=6.0.2",
     "plotly>=6.3.0",
     "nbclient>=0.10.2",
+    "google-cloud-bigquery>=3.36.0",
+    "db-dtypes>=1.4.3",
+    "google-cloud-bigquery-storage>=2.33.0",
 ]
 dev = [
+    "pydantic>=2.11.7",
     "pytest>=8.4.1",
+    "python-dotenv>=1.1.1",
     "ruff>=0.12.10",
 ]

@@ -1,0 +1,314 @@
+---
+title: "なぜノンパラメトリックか?"
+date: "2025-09-01"
+date-modified: "2025-09-03"
+---
+
+どのような状況においてノンパラメトリック推定が必要になるのかを，@dinardo96 を例に説明したいと思います．
+
+
+## 1978年と1988年での男性の実質対数賃金分布
+
+アメリカでは1980年代に賃金格差が拡大されたとされており，その特徴を1979年と1988年での男性の実質対数賃金分布を比較することで検証します．
+
+[Datasetの読み込み]{.mini-section}
+
+```{python}
+#------------------------------------------------------------------------------
+# From BigQuery
+#------------------------------------------------------------------------------
+# # config setup
+# from dotenv import dotenv_values
+# import pathlib
+
+# from regression_monkey_nonparametric import utils as rgm_utils
+
+# ROOT_PATH = pathlib.Path(rgm_utils.git_path_setting())
+# CONFIG = dotenv_values(str(ROOT_PATH / "env" / "config")) 
+
+# GOOGLE_PROJECT = CONFIG['GOOGLE_PROJECT_ID']
+# MEM7988 = rgm_utils.DATASET_CONFIG.dataset['men7988'].source
+
+# # READ DATA FROM BigQuery
+# from google.cloud import bigquery
+
+# client = bigquery.Client(project=CONFIG['GOOGLE_PROJECT_ID'])
+# query = f"SELECT * FROM {MEM7988}"
+# df = client.query(query).to_dataframe()
+
+# # Save tmp dataset
+# MEM7988_PATH = ROOT_PATH / "dataset" / "mem7988.parquet"
+# df.to_parquet(MEM7988_PATH, engine="pyarrow", compression="snappy", index=False)
+```
+
+
+```{python}
+#| code-overflow: wrap
+#| code-fold: show
+
+#------------------------------------------------------------------------------
+# From dataset directory
+#------------------------------------------------------------------------------
+import pathlib
+import pandas as pd
+
+from regression_monkey_nonparametric import utils as rgm_utils
+
+ROOT_PATH = pathlib.Path(rgm_utils.git_path_setting())
+MEM7988_PATH = ROOT_PATH / "dataset" / "mem7988.parquet"
+
+df = pd.read_parquet(MEM7988_PATH)
+df.info()
+```
+
+[前処理]{.mini-section}
+
+元データは名目賃金ベースなので，[FRED](https://fred.stlouisfed.org/series/CPIAUCNS?utm_source=chatgpt.com)が提供するCPI推移を用いて，1979年を基準として賃金を実質変換します．
+
+
+```{python}
+#| code-overflow: wrap
+#| code-fold: show
+
+# CPI値（例）
+cpi_1979 = 76.7
+cpi_1988 = 120.5
+infla_ratio = cpi_1979 / cpi_1988
+
+# 1988年ドルを1979年ドルに換算する関数
+def adjust_to_1979(dollar_1988):
+    return dollar_1988 * infla_ratio
+
+# wage 列をコピーして新しい列を作る（必要に応じて上書き可）
+df['real_wage'] = df['wage']
+
+# yearが1988の行だけ換算
+mask_1988 = df['year'] == 1988
+df.loc[mask_1988, 'real_wage'] = df.loc[mask_1988, 'wage'].apply(adjust_to_1979)
+```
+
+[基本統計量]{.mini-section}
+
+年度別賃金についての基本統計量を確認してみます．
+
+```{python}
+group_column = ['year']
+describe_column = ['real_wage']
+
+# グループごとの describe
+group_stats = df.groupby(group_column)[describe_column].describe().T
+
+# 全体の describe
+total_stats = df[describe_column].describe().stack()
+
+# 全体のIndex整理
+total_stats = total_stats.to_frame(name="Total")
+total_stats.index = total_stats.index.swaplevel(0, 1)
+total_stats = total_stats.sort_index()
+
+# groupby の結果と結合
+result = pd.concat([group_stats, total_stats], axis=1)
+result.columns.name = group_column[0]
+result
+```
+
+実質賃金ではないので，注意が必要ですが，少なくとも名目では1988年のほうが賃金の分散が大きくなっていることがわかります．
+一般に，対数賃金の分布は正規分布によってよく近似できるとされているので，次に対数変換を処理した上で同じく基本統計量を確認してみます．
+
+```{python}
+import numpy as np
+
+from regression_monkey_nonparametric.eda.pandas.summary import create_grouped_describe
+
+# 賃金の対数変換
+df['log_wage'] = np.log(df['real_wage'])
+
+# 基本統計量
+create_grouped_describe(df, group_column, ['log_wage'])
+```
+
+この推定結果をベースに対数賃金についての確率密度関数を可視化します．
+
+```{python}
+import matplotlib.pyplot as plt
+from cycler import cycler
+from matplotlib.ticker import FuncFormatter
+
+from regression_monkey_nonparametric.eda import visualize as rmn_viz
+
+color_palette = rmn_viz.okabe_ito_color
+plt.rcParams["axes.prop_cycle"] = cycler(color=color_palette[1:])
+plt.rcParams["font.family"] = "Meiryo"
+
+minimumwage_79 = np.log(2.90)
+minimumwage_88 = np.log(3.35 * infla_ratio)
+```
+
+```{python}
+#| label: fig-parametric
+#| fig-cap: ""
+
+from scipy.stats import norm
+
+# Compute mean and std of log_wage by year
+group_stats = df["log_wage"].groupby(df["year"]).agg(["mean", "std"])
+
+# Extract values for each year
+mean_79 = group_stats.loc[1979, "mean"]
+std_79 = group_stats.loc[1979, "std"]
+
+mean_88 = group_stats.loc[1988, "mean"]
+std_88 = group_stats.loc[1988, "std"]
+
+
+# X-axis
+x = np.linspace(np.log(1), max(df['log_wage']), 500)
+
+plt.figure(figsize=(9.6, 6))
+ax = plt.gca()
+
+# Normal distributions
+ax.plot(x, norm.pdf(x, mean_79, std_79), label="1979", linewidth=2)
+ax.plot(x, norm.pdf(x, mean_88, std_88), label="1988", linewidth=2)
+
+# Limit x-axis (log scale)
+plt.xlim(np.log(1.6), np.log(70))  # e.g., show wages from 1 to 15
+plt.ylim(0, 1.1)  # e.g., show wages from 1 to 15
+
+# 最低賃金の縦線
+vlines = [
+    (minimumwage_79, "1979\nMin Wage", -0.05),
+    (minimumwage_88, "1988\nMin Wage", -0.15),
+]
+
+ymax = ax.get_ylim()[1]
+label_y = ymax * 0.95
+
+for x, label, x_offset in vlines:
+    # Draw vertical line just below text
+    line_ymax = label_y * 0.95  # slightly below label
+    ax.axvline(
+        x,
+        color=color_palette[-1],
+        linestyle="--",
+        ymin=0,
+        ymax=line_ymax / ymax,
+    )
+
+    # place text slightly above top of plot
+    ymax = ax.get_ylim()[1]
+    ax.text(
+        x + x_offset,
+        line_ymax,
+        label,
+        rotation=0,
+        ha="left",
+        va="bottom",
+        color=color_palette[0],
+    )
+
+
+# Format x-axis: exp back to wage scale
+def exp_formatter(x, pos):
+    return f"Log({np.exp(x):.1f})"  # one decimal, original scale
+
+
+# remove box
+for spine in plt.gca().spines.values():
+    spine.set_visible(False)
+
+ax.xaxis.set_major_formatter(FuncFormatter(exp_formatter))
+
+
+plt.xlabel("log_wage")
+plt.ylabel("Density")
+plt.title("正規分布を用いたパラメトリック推定", fontsize=14)
+plt.xticks(fontsize=10)
+plt.yticks(fontsize=10)
+plt.legend(
+    fontsize=12, frameon=False, loc="upper right", bbox_to_anchor=(1, 0.9)
+)
+plt.grid(axis="y", alpha=0.3)
+
+plt.show()
+```
+
+1979年と比較して1988年賃金の分散が大きくなっているので，1988年の賃金分布の裾が厚くなるのは自然ですが，最低賃金の変化がどの層への影響を与えたのかは推測することができません，
+
+
+[ノンパラメトリック推定]{.mini-section}
+
+パラメトリック推定では正規分布を仮定して確率密度関数を確認しましたが，次に密度関数の関係形に過程を置かずに推定してみます．
+`bw_method=0.1`として，KDE plotを実施したのが以下です:
+
+```{python}
+#| label: fig-kde
+#| fig-cap: ""
+
+
+# kdeplot
+plt.figure(figsize=(9.6, 6))
+ax = plt.gca()
+df.groupby(["year"])["log_wage"].plot.kde(bw_method=0.1, ax=ax)
+
+# Limit x-axis (log scale)
+plt.xlim(np.log(1.6), np.log(70))  # e.g., show wages from 1 to 15
+plt.ylim(0, 1.1)  # e.g., show wages from 1 to 15
+
+# 最低賃金の縦線
+ymax = ax.get_ylim()[1]
+label_y = ymax * 0.95
+
+for x, label, x_offset in vlines:
+    # Draw vertical line just below text
+    line_ymax = label_y * 0.95  # slightly below label
+    ax.axvline(
+        x,
+        color=color_palette[-1],
+        linestyle="--",
+        ymin=0,
+        ymax=line_ymax / ymax,
+    )
+
+    # place text slightly above top of plot
+    ymax = ax.get_ylim()[1]
+    ax.text(
+        x + x_offset,
+        line_ymax,
+        label,
+        rotation=0,
+        ha="left",
+        va="bottom",
+        color=color_palette[0],
+    )
+
+
+# remove box
+for spine in plt.gca().spines.values():
+    spine.set_visible(False)
+
+ax.xaxis.set_major_formatter(FuncFormatter(exp_formatter))
+
+
+plt.xlabel("log_wage")
+plt.ylabel("Density")
+plt.title("ノンパラメトリック推定", fontsize=14)
+plt.xticks(fontsize=10)
+plt.yticks(fontsize=10)
+plt.legend(
+    fontsize=12, frameon=False, loc="upper right", bbox_to_anchor=(1, 0.9)
+)
+plt.grid(axis="y", alpha=0.3)
+
+plt.show()
+```
+
+@fig-kde では @fig-parametric で読み取れなかった賃金分布の特徴が確認できます
+
+- どちらも最低賃金前後でdensityの傾きが急になっている
+- 1979年では最低賃金のところで山が１つあり(=賃金がその水準で集中している)，最低賃金が賃金引き下げを防ぐ役割を果たしている
+- 1988年では最低賃金前後で山はなく，1979年のように賃金の引き下げを防ぐ役割を果たしているとは解釈できない
+
+上記の情報から，実質最低賃金水準の低下が，「低賃金」グループの実質賃金減少の方向性に影響を与えたため，賃金格差が広がったと推測することができます．
+
+パラメトリック推定は，関数形の家庭がある程度良い近似になっている場合には強力なツールですが，仮定（対数賃金分布は正規分布で近似できる）が不適切な場合では，データからインサイトを抽出することが難しくなりますし，誤った理解をしてしまう可能性もあります．

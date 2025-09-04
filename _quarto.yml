@@ -46,12 +46,17 @@ book:
 
   chapters:
     - index.qmd
-    - references.qmd
-    # - part: posts/statistics101/chapter_header.qmd
-      # chapters:
-        # - posts/statistics101/averages.qmd
+    - summary.qmd
+    - notation.qmd
+    - part: "Part 1: 密度関数の推定"
+      chapters:
+        - notes/density_estimation/introduction.qmd
+        - notes/density_estimation/histogram.qmd
   # appendices:
     # - posts/statistics101/appendix.qmd
+    - glossary.qmd
+    - references.qmd
+    
 
 bibliography: references.bib
 
@@ -63,8 +68,9 @@ format:
       - include/google_setup/googletagmanager_in_header.html
     include-before-body: 
       - include/google_setup/googletagmanager_in_body.html
-    lang: ja_JP.UTF-8
-    number-depth: 1
+    lang: us_EN.UTF-8
+    number-depth: 2
+    number-sections: true
     highlight-style: github
     theme: 
       light: 
@@ -85,6 +91,11 @@ format:
     csl: reference.csl
     mainfont: "Noto Sans JP"
     monofont: monospace
+    page-layout: article
+    grid:
+      sidebar-width: 300px
+      body-width: 1000px
+      margin-width: 200px
     mermaid:
       theme: neutral
     pseudocode:

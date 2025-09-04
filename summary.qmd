@@ -1,0 +1,18 @@
+---
+date: "2025-09-01"
+date-modified: "2025-09-01"
+---
+
+# Book Outline {.unnumbered}
+
+## Part 1: 密度関数の推定
+
+[Topics]{.mini-section}
+
+- 密度関数の形状の推定手法としてのヒストグラムの基本性質
+- カーネル型密度関数推定量の基本性質
+
+[References]{.mini-section}
+
+- ノンパラメトリック法: カーネル型推定による統計的性質[@maezono2025, pp. 1-25]
+- @lockhart2013

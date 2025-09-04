@@ -1,0 +1,14 @@
+---
+date: "2025-09-01"
+date-modified: "2025-09-01"
+---
+
+# Notaitons {.unnumbered}
+
+:::: {.no-border-top-table}
+
+| Noation         | Comment           |
+|-----------------|-------------------|
+| $I(A)$ | Indicator function|
+
+::::

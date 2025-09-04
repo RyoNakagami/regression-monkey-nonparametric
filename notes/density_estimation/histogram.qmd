@@ -1,0 +1,299 @@
+---
+title: ヒストグラムの性質
+engine: knitr
+date: "2025-09-01"
+date-modified: "2025-09-01"
+---
+
+::: {.callout-note icon="false"}
+## セットアップ
+
+{{< reveal_vspace 1em >}}
+
+このノートでは密度関数の推定量としてのヒストグラムを考えるので，確率変数の母集団分布は連続型とする． 
+
+$$
+\{X_1, X_2, \cdots, X_n\}
+$$
+
+を互いに独立で同じ分布関数 $F(\cdot)$ に従う確率変数とし，密度関数 $f(\cdot)$ を持つものとする
+
+:::
+
+## 経験分布関数
+
+ノンパラメトリックな分布関数推定量として経験分布関数があります．
+
+::: {#def-edf .custom_problem .blog-custom-border}
+[経験分布関数]{.def-title}
+
+$\{X_1, X_2, \cdots, X_n\}$ というデータが与えられたとき，特定の値 $x$ での経験分布関数は次のように定義される
+
+$$
+\begin{align}
+F_n(x) = \frac{1}{n} \sum_{i=1}^n\mathbb{I}(X_i \leq x)
+\end{align}
+$$
+
+:::
+
+経験分布関数(EDF)は，分布関数についての不偏で一致性を持つ推定量として知られています．
+
+### Bias, variance, MSE and RMSE
+
+何かしらのパラメータ $\theta$ の推定量の性質を考えるとき，基本的には推定誤差 
+
+$$
+\hat\theta - \theta
+$$ 
+
+の分布についてまず考えます．ノンパラメトリックのi.i.dサンプリングモデルにおいては，
+
+$$
+\hat F(x) - F(x)
+$$
+
+になります．この評価手法の１例としてRMSEが挙げられます．
+
+$$
+\operatorname{RMSE} = \sqrt{\mathbb E_{\pmb\theta}[(\hat\theta - \theta)^2]}
+$$
+
+RMSEの単位は $\theta$ の単位と同じなので，誤差のスケールを直感的に理解しやすいというメリットがあります．ただし，推定量の性質を考えるときはMSEのほうが取り回しが良いときが多いのでMSEの次に考えます．
+
+::: {#def- .custom_problem .blog-custom-border}
+[MSE]{.def-title}
+
+:::{.math-scroll}
+$$
+\begin{align}
+\operatorname{MSE}
+  &= \mathbb E_{\pmb\theta}[(\hat\theta - \theta)^2] \\
+  &= \mathbb E_{\pmb\theta}[(\hat\theta - \mathbb E_{\pmb\theta}[\hat\theta] + \mathbb E_{\pmb\theta}[\hat\theta] - \theta)^2] \\
+  &= \mathbb E_{\pmb\theta}[(\hat\theta - \mathbb E_{\pmb\theta}[\hat\theta])^2] + \mathbb E_{\pmb\theta}[(\mathbb E_{\pmb\theta}[\hat\theta] - \theta)^2] + 2\mathbb E_{\pmb\theta}[(\hat\theta - \mathbb E_{\pmb\theta}[\hat\theta])(\mathbb E_{\pmb\theta}[\hat\theta] - \theta)] \\
+  &= \mathbb E_{\pmb\theta}[(\hat\theta - \mathbb E_{\pmb\theta}[\hat\theta])^2] + (\mathbb E_{\pmb\theta}[\hat\theta] - \theta)^2 \\
+  &= \operatorname{Variance} + \operatorname{Bias}^2
+\end{align}
+$$
+:::
+
+:::
+
+[Unibasedness of EDF]{.mini-section}
+
+::: {#prp- .custom_problem  .blog-custom-border}
+[経験分布関数と不偏性]{.def-title}
+
+$$
+\mathbb E[F_n(x)] = F(x)
+$$
+
+:::
+
+::: {.proof}
+
+$$
+\begin{align}
+\mathbb E[F_n(x)]
+  &= \mathbb E\left[\frac{1}{n}\sum_{i=1}^nI(X_i \leq x)\right] \\
+  &= \frac{1}{n}\sum_{i=1}^n\mathbb E[I(X_i \leq x)] \\
+  &= \frac{1}{n}\sum_{i=1}^n\mathbb P(X_i \leq x)\\
+  &= \frac{1}{n}\sum_{i=1}^nF(x)\\
+  &= F(x)
+\end{align}
+$$
+
+$$\tag*{$\blacksquare$}$$
+:::
+
+***
+
+[Variance of EDF]{.mini-section}
+
+::: {#prp-edf-variance .custom_problem  .blog-custom-border}
+[経験分布関数と分散]{.def-title}
+
+$$
+\begin{align}
+\operatorname{Var}(F_n(x)) = \frac{F(x)(1- F(x))}{n}
+\end{align}
+$$
+
+:::
+
+::: {.proof}
+
+$$
+\begin{align}
+\operatorname{MSE}
+  &= \operatorname{Var}(F_n(x))\\
+  &= \frac{1}{n^2}\sum_{i=1}^n\operatorname{Var}[I(X_i \leq x)]\\
+  &= \frac{1}{n}F(x)(1- F(x))
+\end{align}
+$$
+
+$$\tag*{$\blacksquare$}$$
+:::
+
+***
+
+::: {#rem- .custom_problem  .blog-custom-border}
+
+- MSEは $1/n$ の大きさに比例する = $\mathcal{O}(n^{-1})$
+- RMSEは $1/\sqrt{n}$ の大きさに比例する = $\mathcal{O}(\sqrt{n}^{-1})$
+
+:::
+
+
+### Standard Errors and Interval Estimation
+
+$F(x)$ のPointwise Confidence Intervalを考えます．@prp-edf-variance より
+
+::: {.math-scroll}
+$$
+\begin{align}
+\operatorname{SE} \equiv \sigma_{F_n(x)} = \sqrt{\frac{F(x)(1- F(x))}{n}}
+\end{align}
+$$
+:::
+
+CLTより
+
+::: {.math-scroll}
+$$
+\begin{align}
+\frac{F_n(x) - F(x)}{\sigma_{F_n(x)}} \overset{d}{\to} N(0, 1) \label{eq-clt}
+\end{align}
+$$
+:::
+
+つまり漸近的に，$x$ における $1 - \alpha$ Pointwise confidence intervalは，$z_\alpha$ をcritical point(棄却限界)とすると
+
+::: {.math-scroll}
+$$
+\begin{align}
+\left| \frac{F_n(x) - F(x)}{\sigma_{F_n(x)}} \right| \leq z_{\alpha/2} \label{eq-interval}
+\end{align}
+$$
+:::
+
+を満たすIntervalを導出すれば良いことになります．
+
+::: {.callout-tip}
+
+なおここでは説明しないですが，$n$ が大きくなるにつれて，$F_n(x)$ は $x$ について一様に $F(x)$ に収束することが知られています．
+
+::: {#thm-glivenko-cantelli .custom_problem}
+[Glivenko-Cantelliの定理]{.def-title}
+
+確率 $1$ で
+
+::: {.math-scroll}
+$$
+\begin{align}
+\sup_{x\in\mathbb R} |F_n(x) - F(x)| \to 0
+\end{align}
+$$
+:::
+
+:::
+
+:::
+
+
+[Plugin Procedure]{.mini-section}
+
+\eqref{eq-interval} を計算するためには $\sigma_{F_n(x)}$ が必要になりますが，$\sqrt{F(x)(1- F(x))/n}$ とunknown parameterを含んでしまっています．そこで，$\sigma_{F_n(x)}$ 代替手段として
+
+::: {.math-scroll}
+$$
+\begin{align}
+\hat\sigma_{F_n(x)} = \sqrt{\frac{F_n(x)(1- F_n(x))}{n}} 
+\end{align}
+$$
+:::
+
+$F(x)$ の部分に $F_n(x)$ を以下のようにpluginするのでPlugin Procedureと呼んだりします．
+
+::: {.math-scroll}
+$$
+\begin{align}
+\frac{F_n(x) - F(x)}{\hat\sigma_{F_n(x)}} \label{eq-plugin}
+\end{align}
+$$
+:::
+
+次に，\eqref{eq-plugin} の漸近分布を考えます．
+
+$$
+g(t) = t(1 - t)
+$$
+
+は $t \in (0, 1)$ で連続なので連続写像定理より，$F_n(x) \overset{p}{\to} F(x)$ であるので
+
+$$
+F_n(x)(1- F_n(x)) \overset{p}{\to} F(x)(1- F(x))
+$$
+
+従って，
+
+$$
+\hat\sigma_{F_n(x)} \overset{p}{\to} \sigma_{F_n(x)} 
+$$
+
+次にSlutskyの定理を適用すると
+
+::: {.math-scroll}
+$$
+\begin{align}
+\frac{F_n(x) - F(x)}{\hat\sigma_{F_n(x)}}
+  &= \frac{F_n(x) - F(x)}{\sigma_{F_n(x)}}\frac{{\sigma_{F_n(x)}}}{\hat\sigma_{F_n(x)}}\\
+  &\overset{d}{\to} N(0, 1)
+\end{align}
+$$
+:::
+
+従って，pointwise 95% confidence intervalは
+
+::: {.math-scroll}
+$$
+\begin{align}
+F_n(x) \pm z_{0.025}\sqrt{\frac{F_n(x)(1- F_n(x))}{n}} \label{eq-plugin-ci}
+\end{align}
+$$
+:::
+
+[Pointwise CIの問題点]{.mini-section}
+
+\eqref{eq-plugin-ci} は各点 $x$ に応じて定まるという問題点があります．例えば，$x \in (0, 1)$ 区間で推定したEDFに基づいて分布関数をプロットしたとします．$x \in (0, 1)$ を20個 pickupしてCIをプロットしたとしても，少なくとも１つくらいは完全にtargetとなるようなtrue CDFから逸脱したplotとなっているはずです．
+
+EDF推定量を用いた分析で本当にほしいIntervalはPointwise CIではなく，
+
+$$
+P_F (L(X, x) \leq F(x) \leq U(X, x) \,  \ \forall x) \geq 1 − \alpha
+$$
+
+となるようなCI, simultaneous CIの場合が多いはずです．too conservativeすぎてあまり使われないですが，１つの手法としてDvoretsky-Kiefer-Wolfowitz inequalityがあります．
+
+$$
+\operatorname{Pr}\left(\sqrt{n}\sup_{x\in\mathbb{R}}\left|F_{n}\left(x\right) - F\left(x\right)\right| > \epsilon\right) \leq 2e^{-2\epsilon^{2}}
+$$
+
+これを変形させると
+
+$$
+\operatorname{Pr}\left(\sup_{x\in\mathbb{R}}\left|F_{n}\left(x\right) - F\left(x\right)\right| > \sqrt{\frac{-\log(\alpha/2)}{2n}}\right) \leq \alpha
+$$
+
+
+
+
+
+
+最後の式変形は
+
+
+
+
+$\{X_1, X_2, \cdots, X_n\}$ の実現値 $x_1, \cdots, x_n$ を固定して考えると，もし互いに全てバラバラな値のときは，
+$F_n(x)$ は各 $x_i$ で $1/n$ だけジャンプし，他の $x$ については平らな階段関数(右側連続関数)となります．階段関数は微分不可能なので，分布関数が推定できたとしても密度関数の推定量を経験分布関数から構成することはなにか別の方法を考える必要があります．
